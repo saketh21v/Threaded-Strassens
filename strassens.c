@@ -343,10 +343,7 @@ void verify(int** rn, int** r, int n){
 }
 
 
-int main()
-{
-    srand(time(NULL));
-    int n=64;
+void test(int n){
     int** a = createMatrix(n);
     int** b = createMatrix(n);
     int** rn = createMatrix(n);
@@ -359,45 +356,50 @@ int main()
             b[i][j] = rand()%10;
         }
     }
-    /*for(int i=0;i<n;i++){
-        for(int j=0;j<n;j++){
-            scanf("%d", &b[i][j]);
-        }
-    }*/
-    // printf("a : \n");
-    // prnMtrx(a, n, n);
-    // printf("\nb : \n");
-    // prnMtrx(b, n, n);
-
-    printf("\n");
+    printf("%d\t\n", n);
     clock_t begin = clock();
     // mtrxMulRecur(a,b,rn,0,0,0,0,n);
-    mtrxMul(a,b,rn,n);
+    // mtrxMul(a,b,rn,n);
     clock_t end = clock();
     double t = ((double)(end - begin))/CLOCKS_PER_SEC;
-    printf("Normal : \n");
+    // printf("Normal : \n");
     // prnMtrx(rn,n,n);
-    printf("Time taken = %lfs\n", t);
+    // printf("Time taken = %lfs\n", t);
 
 
-    printf("\nRecursive: \n");
+    // printf("\nRecursive: \n");
     begin = clock();
     mtrxMulRecur(a, b, rr, 0,0,0,0,n);
     end = clock();
     t = ((double)(end - begin))/CLOCKS_PER_SEC;
-    verify(rr, rn, n);
-    printf("Time taken = %lfs\n", t);
+    // verify(rr, rn, n);
+    // printf("Time taken = %lfs\n", t);
+    printf("%lf\t\n", t);
 
-
-    printf("\nStrassens: \n");
+    // printf("\nStrassens: \n");
     begin = clock();
     strassens(a, b, r, 0,0,0,0,n);
     end = clock();
     t = ((double)(end - begin))/CLOCKS_PER_SEC;
     verify(rn, r, n);
     // prnMtrx(r, n,n);
-    printf("Time taken = %lfs\n", t);
+    // printf("Time taken = %lfs\n", t);
 
-    // verify(rn, r, n);
+    printf("%lf\n", t);
+    deleteMtrx(a,n);
+    deleteMtrx(b,n);
+    deleteMtrx(r,n);
+    deleteMtrx(rr,n);
+    deleteMtrx(rn,n);
+}
+
+int main()
+{
+    srand(time(NULL));
+    
+    for(int i=1;i<=5;i++){
+        test((int)pow(2,i));
+    }
+
     return 0;
 }
