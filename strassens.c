@@ -327,9 +327,9 @@ void verify(int** rn, int** r, int n){
             t[i][j] = rn[i][j] - r[i][j];
         }
     }
-    printf("\n");
+    // printf("\n");
     // prnMtrx(t, n, n);
-    printf("\n");
+    // printf("\n");
     for(int i=0;i<n;i++){
         for(int j=0;j<n;j++){
             if(rn[i][j] != r[i][j]){
@@ -385,7 +385,7 @@ int main()
     mtrxMulRecur(a, b, rr, 0,0,0,0,n);
     end = clock();
     t = ((double)(end - begin))/CLOCKS_PER_SEC;
-    verify(rr, r, n);
+    verify(rr, rn, n);
     printf("Time taken = %lfs\n", t);
 
 
@@ -398,6 +398,6 @@ int main()
     // prnMtrx(r, n,n);
     printf("Time taken = %lfs\n", t);
 
-    verify(rn, r, n);
+    // verify(rn, r, n);
     return 0;
 }
