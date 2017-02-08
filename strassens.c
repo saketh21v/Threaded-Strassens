@@ -357,7 +357,7 @@ void test(int n){
             b[i][j] = rand()%10;
         }
     }
-    printf("%d\t\n", n);
+    printf("%d\t", n);
     clock_t begin = clock();
     // mtrxMulRecur(a,b,rn,0,0,0,0,n);
     // mtrxMul(a,b,rn,n);
@@ -375,14 +375,14 @@ void test(int n){
     t = ((double)(end - begin))/CLOCKS_PER_SEC;
     // verify(rr, rn, n);
     // printf("Time taken = %lfs\n", t);
-    printf("%lf\t\n", t);
+    printf("%lf\t", t);
 
     // printf("\nStrassens: \n");
     begin = clock();
     strassens(a, b, r, 0,0,0,0,n);
     end = clock();
     t = ((double)(end - begin))/CLOCKS_PER_SEC;
-    verify(rn, r, n);
+    // verify(rn, r, n);
     // prnMtrx(r, n,n);
     // printf("Time taken = %lfs\n", t);
 
@@ -398,7 +398,7 @@ int main()
 {
     srand(time(NULL));
     
-    for(int i=1;i<=5;i++){
+    for(int i=1;i<=8;i++){
         test((int)pow(2,i));
     }
 
