@@ -84,39 +84,36 @@ void mtrxMulRecur(int** a, int** b, int** r, int a1, int a2, int b1, int b2,int 
             a12b22 = a12 * b22
             a21b11 = a21 * b11
             a22b21 = a22 * b21
-            a21b12 = a21 * b12
+            a21b12 = a21 * b12chr
             a22b22 = a22 * b22
     */
     int sum = 0;
-    if(n > 3){
+    if(n > 2){
         int n2 = n/2;
-//        printf("n2 = %d\n\n", n2);
+
         int** a11b11 = createMtrx(n2, n2);
         mtrxMulRecur(a,b,a11b11,a1,a2,b1,b2,n2);
-//        prnMtrx(a11b11, n2, n2);
 
         int** a12b21 = createMtrx(n2, n2);
-        mtrxMulRecur(a,b,a12b21,a1,a2+(n2),b1+(n2),b2,n2);
-//        prnMtrx(a12b21, n2, n2);
+        mtrxMulRecur(a,b,a12b21,a1,a2+n2,b1+n2,b2,n2);
 
         int** a11b12 = createMtrx(n2, n2);
         mtrxMulRecur(a,b,a11b12,a1,a2,b1,b2+n2,n2);
-//        prnMtrx(a11b12, n2, n2);
 
         int** a12b22 = createMtrx(n2, n2);
-        mtrxMulRecur(a,b,a12b22,0,n2,n2,n2,n2);
+        mtrxMulRecur(a,b,a12b22,a1,a2+n2,b1+n2,b2+n2,n2);
 
         int** a21b11 = createMtrx(n2, n2);
-        mtrxMulRecur(a,b,a21b11,n2,0,0,0,n2);
+        mtrxMulRecur(a,b,a21b11,a1+n2,a2+0,b1+0,b2+0,n2);
 
         int** a22b21 = createMtrx(n2, n2);
-        mtrxMulRecur(a,b,a22b21,n2,n2,n2,0,n2);
+        mtrxMulRecur(a,b,a22b21,a1+n2,a2+n2,b1+n2,b2+0,n2);
 
         int** a21b12 = createMtrx(n2, n2);
-        mtrxMulRecur(a,b,a21b12,n2,0,0,n2,n2);
+        mtrxMulRecur(a,b,a21b12,a1+n2,a2+0,b1+0,b2+n2,n2);
 
         int** a22b22 = createMtrx(n2, n2);
-        mtrxMulRecur(a,b,a22b22,n2,n2,n2,n2,n2);
+        mtrxMulRecur(a,b,a22b22,a1+n2,a2+n2,b1+n2,b2+n2,n2);
 
         int** r11 = createMtrx(n2, n2);
         addMtrx(a11b11, a12b21, r11, n2);
@@ -163,27 +160,15 @@ void mtrxMulRecur(int** a, int** b, int** r, int a1, int a2, int b1, int b2,int 
 
         return;
     }
-    if(n == 3){
-        for(int i=0;i<n;i++){
-            for(int j=0;j<n;j++){
-                for(int k=0;k<n;k++){
-                    sum = sum + a[i+a1][k+a2]*b[k+b1][j+b2];
-                }
-                r[i][j] = sum;
-                sum = 0;
-            }
-        }
-        return;
-    }
+    
     // If n == 2
-    r[0][0] = a[a1][a2]*b[b1][b2] + a[a1][a1 + 1]*b[b1 + 1][b2];
+    r[0][0] = a[a1][a2]*b[b1][b2] + a[a1][a2 + 1]*b[b1 + 1][b2];
     r[0][1] = a[a1][a2]*b[b1][b2 + 1] + a[a1][a2 + 1]*b[b1 + 1][b2 + 1];
     r[1][0] = a[a1 + 1][a2]*b[b1][b2] + a[a1 + 1][a2 + 1]*b[b1 + 1][b2];
     r[1][1] = a[a1 + 1][a2]*b[b1][b2 + 1] + a[a1 + 1][a2 + 1]*b[b1 + 1][b2 + 1];
     //prnMtrx(r, n, n);
     return;
 }
-
 
 void strassens(int** a, int** b, int** result, int a1, int a2, int b1, int b2, int n){
     if(n == 2){
